@@ -6,40 +6,59 @@
         <meta name="viewport" content="width=device-width, initial-
         scale=1.0" />
         <link rel="stylesheet" href="style.css">
-        <title>Unguided</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+        <title>Unguided Vue Basic</title>
         <script src="vue.js"></script>
 </head>
 
 <body>
-    <div id="app">
-        <h2>Halo, Welkambek {{ juliya.nama }}</h2>
-        <h2>{{ juliya.judul }}</h2>
-
-        <p>Input Number Gan:)</p>
-        <input type="number" v-model.number="juliya.number" />
-        <div>
-            <button @click="inputNumber">Input</button>
-        </div>
-
-        <p>Cek Number Gan:)</p>
-        <input type="number" v-model.number="juliya.number" />
-        <div>
-            <button @click="cekNumber">Cek</button>
-        </div>
-
-        <br>
-
-        Jadi Hasilnya : <span v-if="juliya.number === juliya.number">
-            {{ cek }}
-        </span>
-        <span v-else>
-            Angka Salah
-        </span>
-
-        <div class="footer">
-            <p>{{ juliya.footer }}</p>
-          </div>
+    <div id="app" class="text">
         
+        <h2> AYO TEBAK ANGKA </h2>
+        <h2>Halo, Welkambek {{ nama }}</h2>
+
+        <div class="d-flex justify-content-left">
+
+            <div class="card-body">
+                
+                <h2>==Masukan Angka 1-10==</h2>
+                <h2>!! JANGAN LEBIH ATAU KURANG !!</h2>
+
+                <div class="text-primary">
+                    <input type="number" class="form-control" v-model="inputangka" placeholder="angka loh ya"/>
+                    <br><br>
+                    <button class="btn btn-primary" @click="cekangka" >Cek Angka</button>
+                    
+                    <br><br>
+                    Kesempatan Bermain : {{ kesempatanbermain }}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="text" v-show="benar">
+            <p> ANGKA BENAR, KAMU MENANG:) </p> 
+            <button class="btn btn-primary" @click="main" >MAIN LAGI YUK</button>
+        </div>
+
+        <div class="text" v-show="salah">
+            <p>KAMU SALAH TEBAK, COBA LAGI:)</p> 
+            <button class="btn btn-primary" @click="coba" >COBA LAGI YA</button>
+        </div>
+
+        <div class="text" v-show="kalah">
+            <p>KAMU KALAH, AYO MAIN LAGI:) </p> 
+            <button class="btn btn-primary" @click="main" >MAIN LAGI YUK</button>
+        </div>
+        
+        <br><br>
+        <p>Jawaban : {{ setangka }} </p>
+
+        
+        <footer class="footer">
+            {{ juliya.footer }}
+        </footer>
+
     </div>
 </body>
 
@@ -47,15 +66,48 @@
     new Vue({
         el: "#app",
         data: {
+            nama : 'Juliya',
+            inputangka:"",
+            setangka: Math.floor(Math.random() * 10)+1,
+            kesempatanbermain:3,
+
+            benar:undefined,
+            salah:undefined,
+            kalah:undefined,
+            
             juliya: {
-                nama: 'Juli',
-                judul : 'Permainan Tebak-tebakan Angka',
-                footer : 'Ni Putu Juliya Pradnyawati|180709745|PAW C',
-                number:"",
-                cek : 'Angka Benar'
-            }
+                footer : 'Ni Putu Juliya Pradnyawati | 180709745 | PAW C'
+            },
+
+           
         },
-        
+        methods: {
+            
+            cekangka(){
+            if(this.inputangka == this.setangka){
+                this.benar = 1;
+                
+                
+            }else {
+                    this.salah = 1;
+                    this.kesempatanbermain--;
+                    if(this.kesempatanbermain==0){
+                        this.kalah = 1;
+                        this.salah = undefined;
+                    }
+            }
+               
+           },
+           
+           coba(){
+                this.salah = undefined;
+           },
+
+           main(){
+               location.reload();
+           }
+        },
+ 
     });
 </script>
 </html>
