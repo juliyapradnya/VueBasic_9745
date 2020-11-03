@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-
+        scale=1.0" />
+        <link rel="stylesheet" href="style.css">
+        <title>Unguided</title>
+        <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>Halo, Welkambek {{ juliya.nama }}</h2>
+        <h2>{{ juliya.judul }}</h2>
+
+        <p>Input Number Gan:)</p>
+        <input type="number" v-model.number="juliya.number" />
+        <div>
+            <button @click="inputNumber">Input</button>
+        </div>
+
+        <p>Cek Number Gan:)</p>
+        <input type="number" v-model.number="juliya.number" />
+        <div>
+            <button @click="cekNumber">Cek</button>
+        </div>
+
+        <br>
+
+        Jadi Hasilnya : <span v-if="juliya.number === juliya.number">
+            {{ cek }}
+        </span>
+        <span v-else>
+            Angka Salah
+        </span>
+
+        <div class="footer">
+            <p>{{ juliya.footer }}</p>
+          </div>
+        
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            juliya: {
+                nama: 'Juli',
+                judul : 'Permainan Tebak-tebakan Angka',
+                footer : 'Ni Putu Juliya Pradnyawati|180709745|PAW C',
+                number:"",
+                cek : 'Angka Benar'
+            }
+        },
+        
+    });
+</script>
+</html>
