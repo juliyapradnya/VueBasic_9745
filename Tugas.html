@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-
+        scale=1.0" />
+        <link rel="stylesheet" href="stylee.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <title>Tugas</title>
+        <script src="vue.js"></script>
+</head>
+
+<body style="background-color: rgb(34, 196, 142);">
+    <div id="app">
+
+        <h1 class="text-center" style="color: azure;">To Do List</h1>
+
+        <div class="col-5 justify-content-center mx-auto mt-5">
+            <div class="card p-5">
+
+                <div class="form-group">
+                    <label for="title"><strong>Mau ngapain nih?</strong></label>
+                    <input type="text"  class="form-control" id="title" >
+                </div>
+
+                <div class="form-group">
+                    <label for="prioritas"><strong>Penting gak?</strong> </label>
+                    <select name="prioritas"  id="prioritas" class="form-control">
+                        <option value="penting">penting</option>
+                        <option value="biasa">biasa aja</option>
+                        <option value="gak penting">gak penting</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="note"><strong>Ada note?</strong> </label>
+                    <textarea class="form-control" id="note"></textarea>
+                </div>
+
+                <br><br>
+                <div>
+                    <button class="btn btn-primary btn-sm" @click="simpanTask">Simpan</button>
+                    <button class="btn btn-danger btn-sm" @click="resetTask">Reset</button>
+                </div>
+
+                
+                <div class="card">
+                    <div v-for="(tasks,index) in task" :key="index">
+                        <div class="card">
+                            <div class="card-body" style="background-color: rgb(141, 238, 205);">
+                                <span class="float-right"><button class="btn btn-sm" @click="hapus(index)" style="color: crimson;">X</button></span>
+
+                                <span v-if="tasks.prioritas == 'penting'" class="badge badge-light text-danger" style="width: 8rem">{{ tasks.prioritas }}</span>
+                                <span v-else-if="tasks.prioritas == 'biasa'" class="badge badge-light text-warning" style="width: 8rem">{{ tasks.prioritas }}</span>
+                                <span v-else class="badge badge-light text-success" style="width: 8rem">{{ tasks.prioritas }}</span>
+                                
+                                <br><br>
+                                <h4>{{ tasks.title }}</h4>
+                                <h5>{{ tasks.note }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+</body>
+
+<script>
+   new Vue({
+        el: "#app",
+        data: {
+            task:[],
+            
+        },
+        methods: {
+            simpanTask() {
+                
+                let tasks = {
+                    title : title.value,
+                    prioritas : prioritas.value,
+                    note : note.value,
+                }
+                
+                note.value = "";
+                prioritas.value = "";
+                title.value = "";
+                
+                this.task.push(tasks);
+                
+            },
+
+            resetTask(){
+                note.value = "";
+                prioritas.value = "";
+                title.value = "";
+            },
+
+            hapus(index){
+                this.task.splice(index,1);
+            },
+
+            clearAll() {
+                this.task = [];
+            }
+        },
+    });
+</script>
+</html>
